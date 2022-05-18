@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "supertest": "^6.2.3"
+  },
+  "devDependencies": {
+    "cypress": "^9.6.1"
+  }
+}
