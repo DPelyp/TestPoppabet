@@ -1,7 +1,6 @@
 {
     "env": {
-        "baseURL" : "https://poppabet.com",
-         "multiple": true 
+        "baseURL" : "https://poppabet.com"
     }
 } 
 
