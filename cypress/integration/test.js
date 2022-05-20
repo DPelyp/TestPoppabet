@@ -85,7 +85,7 @@ describe('User registartaion Full', () => {
       cy.get(pe.password).click().should('be.visible').type(password).should('have.value', password),
       cy.get(pe.confirmPassword).click({ multiple: true }).should('be.visible').type(password, { multiple: true }).should('have.value', password),
       cy.get(pe.country).select(randomCountry()).should('be.visible')
-      cy.get(pe.nextButton).should('be.visible').click()
+      cy.get(pe.nextButton).click()
   })
 
   it('Form 2 Registration', () => {
@@ -114,20 +114,20 @@ describe('User registartaion Quick', () => {
     cy.visit(Cypress.env("baseURL"))});
 
   it('Email Registration Form', () => {
-    cy.get(pe.registrationButton).should('be.visible').click(),
-    cy.get(pe.quickFormButton).should('be.visible').click(),
+    cy.get(pe.registrationButton).click(),
+    cy.get(pe.quickFormButton).click(),
     cy.get(pe.emailCheckBox).click().should('be.checked'),
-    cy.get(pe.email).click().should('be.visible').type(RANDOM_EMAIL_QUICK_FORM),
+    cy.get(pe.email).click().type(RANDOM_EMAIL_QUICK_FORM),
     cy.get(pe.currency).select(randomCurrency()).should('be.visible'),
     cy.get(pe.checkbox).click().should('be.checked'),
-    cy.get(pe.registerButton).should('be.visible').click()
+    cy.get(pe.registerButton).should('be.visible').click(),
+    cy.get(pe.userProfile).click(),
+    cy.get(pe.logoutButton).click()
   })
 
   it('Phone Registration Form', () => {
-    cy.get(pe.userProfile).should('be.visible').click(),
-    cy.get(pe.logoutButton).should('be.visible').click(),
-    cy.get(pe.registrationButton).should('be.visible').click(),
-    cy.get(pe.quickFormButton).should('be.visible').click(),
+    cy.get(pe.registrationButton, {timeout : 30000}).click(),
+    cy.get(pe.quickFormButton).click(),
     cy.get(pe.phoneCheckBox).click().should('be.checked'),
     cy.get(pe.countryCode).should("be.visible"),
     cy.get(pe.phoneNumber).click().should('be.visible').type(RANDOM_PHONE_NUMBER_QUICK_FORM),

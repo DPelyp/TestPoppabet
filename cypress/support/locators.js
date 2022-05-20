@@ -26,6 +26,6 @@ export class PageElements {
     quickFormButton = '.tabs-container > :nth-child(2)';
     emailCheckBox = '#r_0';
     userProfile = '.mobile-header-section_topPanel_right > .icon-profile';
-    logoutButton = '.mobile-internal > .flex_container > .flex_child > .bottom > .logout_button > .general-menu_item';
+    logoutButton = '.mobile-internal > .flex_container > .flex_child > .bottom > .logout_button';
     phoneCheckBox = '#r_1';
 }
