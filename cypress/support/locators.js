@@ -1,14 +1,14 @@
 
 
 export class PageElements {
-    registrationButton = '.signup-btn';
-    userName = '.form-controls-container > :nth-child(1) > .form_field > .ng-untouched';
-    email = '.form-controls-container > :nth-child(2) > .form_field > .ng-untouched';
+    registrationButton = ':nth-child(3) > .default_width > .button-style1-type > .button-style1-type-btn';
+    userName = ':nth-child(3) > .form_field > .ng-untouched';
+    email = ':nth-child(4) > .form_field > .ng-untouched';
     password = ':nth-child(1) > .form_field > .ng-untouched';
     confirmPassword = '.form_field > .ng-pristine';
     country = '.custom_dropdown_reg';
     nextButton = '.craft_btn';
-    firstName = ':nth-child(1) > .form_field > .ng-untouched';
+    firstName = ':nth-child(3) > .form_field > .ng-untouched';
     lastName = '.form_field > .ng-pristine';
     birthDate = '.birthDate_tabs > :nth-child(1) > .custom_dropdown_reg';
     birthMonths = '#birth-month';
@@ -22,10 +22,10 @@ export class PageElements {
     countryCode = '.flex_between';
     phoneNumber = '.mobileData_tabs > .ng-untouched';
     checkbox = '.reg-checkbox';
-    registerButton = '.next-btn';
-    quickFormButton = '.tabs-container > :nth-child(2)';
-    emailCheckBox = '#r_0';
-    userProfile = '.mobile-header-section_topPanel_right > .icon-profile';
-    logoutButton = '.mobile-internal > .flex_container > .flex_child > .bottom > .logout_button';
-    phoneCheckBox = '#r_1';
+    registerButton = '.craft_btn';
+    quickFormButton = '.btns-container > :nth-child(2) > div';
+    emailQuick = '.form_field > .ng-pristine';
+    userProfile = '.user-id-info';
+    logoutButton = '#custom_dropdown_list > div.lang_grid > li:nth-child(7) > div > a > app-global-logout > button > span';
+    phoneValue = '.custom_dropdown_reg';
 }

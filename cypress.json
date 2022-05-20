@@ -1,6 +1,10 @@
 {
-    "env": {
-        "baseURL" : "https://poppabet.com"
-    }
+   
+        "viewportWidth": 2024,
+        "viewportHeight": 800,
+        "env": {
+            "baseURL" : "https://poppabet.com"
+        }
+    
+   
 } 
-

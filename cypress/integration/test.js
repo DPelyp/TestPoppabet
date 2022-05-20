@@ -78,8 +78,7 @@ describe('User registartaion Full', () => {
       cy.visit(Cypress.env("baseURL"))});
 
     it('Form 1 Registration', () => {
-
-      cy.get(pe.registrationButton).click().should('be.visible'),
+      cy.get(pe.registrationButton).click(),
       cy.get(pe.userName).click().should('be.visible').type(RANDOM_NAME),
       cy.get(pe.email).click().should('be.visible').type(RANDOM_EMAIL),
       cy.get(pe.password).click().should('be.visible').type(password).should('have.value', password),
@@ -97,13 +96,13 @@ describe('User registartaion Full', () => {
     cy.get(pe.gender).select(randomGender()).should('be.visible'),
     cy.get(pe.country).select(randomCountrySecond()).should('be.visible'),
     cy.get(pe.city).select('Select City').should('be.visible'),
-    cy.get(pe.nextButtonSecond).should('be.visible').click()
+    cy.get(pe.nextButtonSecond).click()
 }) 
 it('Form 3 Registration', () => {
  cy.get(pe.address).click().should('be.visible').type(RANDOM_ADDRESS).should('have.value', RANDOM_ADDRESS),
  cy.get(pe.currency).select(randomCurrency()).should('be.visible'),
  cy.get(pe.countryCode).should("be.visible"),
- cy.get(pe.phoneNumber).click().should('be.visible').type(RANDOM_PHONE_NUMBER),
+ cy.get(pe.phoneNumber).click().should('be.visible').type(RANDOM_PHONE_NUMBER).should('be.visible'),
  cy.get(pe.checkbox).click().should('be.checked'),
  cy.get(pe.registerButton).should('be.visible').click()
 })
@@ -116,8 +115,7 @@ describe('User registartaion Quick', () => {
   it('Email Registration Form', () => {
     cy.get(pe.registrationButton).click(),
     cy.get(pe.quickFormButton).click(),
-    cy.get(pe.emailCheckBox).click().should('be.checked'),
-    cy.get(pe.email).click().type(RANDOM_EMAIL_QUICK_FORM),
+    cy.get(pe.emailQuick).click().type(RANDOM_EMAIL_QUICK_FORM).should('have.value', RANDOM_EMAIL_QUICK_FORM),
     cy.get(pe.currency).select(randomCurrency()).should('be.visible'),
     cy.get(pe.checkbox).click().should('be.checked'),
     cy.get(pe.registerButton).should('be.visible').click(),
@@ -128,9 +126,9 @@ describe('User registartaion Quick', () => {
   it('Phone Registration Form', () => {
     cy.get(pe.registrationButton, {timeout : 30000}).click(),
     cy.get(pe.quickFormButton).click(),
-    cy.get(pe.phoneCheckBox).click().should('be.checked'),
+    cy.get(pe.phoneValue).select("Mobile"),
     cy.get(pe.countryCode).should("be.visible"),
-    cy.get(pe.phoneNumber).click().should('be.visible').type(RANDOM_PHONE_NUMBER_QUICK_FORM),
+    cy.get(pe.phoneNumber).click().type(RANDOM_PHONE_NUMBER_QUICK_FORM).should('be.visible'),
     cy.get(pe.currency).select(randomCurrency()).should('be.visible'),
     cy.get(pe.checkbox).click().should('be.checked'),
     cy.get(pe.registerButton).should('be.visible').click()
