@@ -14,7 +14,7 @@ const RANDOM_PHONE_NUMBER = faker.datatype.number({
   'min': 100000000,
   'max': 999999999
 });
-const RANDOM_EMAIL_QUICK_FORM = faker.internet.email()
+const RANDOM_EMAIL_QUICK_FORM = faker.internet.email();
 const RANDOM_PHONE_NUMBER_QUICK_FORM = faker.datatype.number({
   'min': 100000000,
   'max': 999999999
@@ -33,43 +33,43 @@ function randomCountry () {
   const countries = ["784", "809", "810"];
   const rand = Math.floor(Math.random()*countries.length);
   return countries[rand];
-  }
+  };
 
   function randomAge () {
     const years = ["1999", "2000", "2001"]; 
     const rand = Math.floor(Math.random()*years.length);
     return years[rand];
-  }
+  };
 
   function randomMonths () {
     const months = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']; 
     const rand = Math.floor(Math.random()*months.length);
     return months[rand];
-  }
+  };
 
   function randomDay () {
     const days = ['1', '2', '3', '4', '5']; 
     const rand = Math.floor(Math.random()*days.length);
     return days[rand];
-  }
+  };
 
   function randomGender () {
     const gender = ['1', '2']; 
     const rand = Math.floor(Math.random()*gender.length);
     return gender[rand];
-  }
+  };
 
   function randomCountrySecond () {
     const countries = ["784", "809", "810"];
     const rand = Math.floor(Math.random()*countries.length);
     return countries[rand];
-    }
+    };
 
     function randomCurrency () {
       const currency = ["USD", "EUR", "UYU", "RUB"];
       const rand = Math.floor(Math.random()*currency.length);
       return currency[rand];
-      }
+      };
   
 
 
@@ -83,7 +83,7 @@ describe('User registartaion Full', () => {
       cy.get(pe.email).click().should('be.visible').type(RANDOM_EMAIL),
       cy.get(pe.password).click().should('be.visible').type(password).should('have.value', password),
       cy.get(pe.confirmPassword).click({ multiple: true }).should('be.visible').type(password, { multiple: true }).should('have.value', password),
-      cy.get(pe.country).select(randomCountry()).should('be.visible')
+      cy.get(pe.country).select(randomCountry()).should('be.visible'),
       cy.get(pe.nextButton).click()
   })
 
@@ -108,7 +108,7 @@ it('Form 3 Registration', () => {
 })
 });
 
-describe('User registartaion Quick', () => {
+describe('User registartaion Quick Form first', () => {
   before (()=> {
     cy.visit(Cypress.env("baseURL"))});
 
@@ -122,6 +122,11 @@ describe('User registartaion Quick', () => {
     cy.get(pe.userProfile).click(),
     cy.get(pe.logoutButton).click()
   })
+})
+
+  describe('User registartaion Quick second', () => {
+    before (()=> {
+      cy.visit(Cypress.env("baseURL"))});
 
   it('Phone Registration Form', () => {
     cy.get(pe.registrationButton, {timeout : 30000}).click(),
