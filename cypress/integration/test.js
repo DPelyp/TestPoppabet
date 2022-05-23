@@ -2,7 +2,10 @@
 
 import {PageElements} from '../support/locators.js';
 import faker from 'faker';
+const jsonData = require('./testData.json');
 var generator = require('generate-password');
+
+
 
 const pe = new PageElements()
 
@@ -70,6 +73,8 @@ function randomCountry () {
       const rand = Math.floor(Math.random()*currency.length);
       return currency[rand];
       };
+
+
   
 
 
@@ -77,12 +82,12 @@ describe('User registartaion Full', () => {
     before (()=> {
       cy.visit(Cypress.env("baseURL"))});
 
-    it('Form 1 Registration', () => {
+    it.only('Form 1 Registration', () => {
       cy.get(pe.registrationButton).click(),
       cy.get('.btns-container > .active').should('have.class', 'active'),
       cy.get('.account-info').should('have.text', 'ACCOUNT INFORMATION'),
       cy.get('.password-info').should('have.text',' Lowercase letter is required Upper case letter is required Digit is not allowed Symbol is not allowed Maximum length is 16 Minimum length is 6'),
-      cy.get(pe.userName).click().should('be.visible').type(RANDOM_NAME).should('have.value', RANDOM_NAME),
+      cy.get(pe.userName).click().should('be.visible').type(jsonData["data"][0]["first_name"]),
       cy.get(pe.email).click().should('be.visible').type(RANDOM_EMAIL),
       cy.get(pe.password).click().should('be.visible').type(password).should('have.value', password),
       cy.get(pe.confirmPassword).click({ multiple: true }).should('be.visible').type(password, { multiple: true }).should('have.value', password),

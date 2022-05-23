@@ -1,7 +1,7 @@
 {
    
-        "viewportWidth": 2024,
-        "viewportHeight": 800,
+        "viewportWidth": 1280,
+        "viewportHeight": 1080,
         "env": {
             "baseURL" : "https://poppabet.com"
         }
