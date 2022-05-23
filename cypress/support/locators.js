@@ -28,4 +28,7 @@ export class PageElements {
     userProfile = '.user-id-info';
     logoutButton = '#custom_dropdown_list > div.lang_grid > li:nth-child(7) > div > a > app-global-logout > button > span';
     phoneValue = '.custom_dropdown_reg';
+    fullRegButton = '.btns-container > .active';
+    accInfoButton = '.account-info';
+    passwordInfo = '.password-info';
 }

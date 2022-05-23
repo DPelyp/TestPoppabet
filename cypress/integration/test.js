@@ -9,19 +9,19 @@ var generator = require('generate-password');
 
 const pe = new PageElements()
 
-const RANDOM_NAME = faker.name.findName();
-const RANDOM_LAST_NAME = faker.name.lastName();
-const RANDOM_EMAIL = faker.internet.email();
-const RANDOM_ADDRESS = faker.address.streetAddress();
-const RANDOM_PHONE_NUMBER = faker.datatype.number({
-  'min': 100000000,
-  'max': 999999999
-});
-const RANDOM_EMAIL_QUICK_FORM = faker.internet.email();
-const RANDOM_PHONE_NUMBER_QUICK_FORM = faker.datatype.number({
-  'min': 100000000,
-  'max': 999999999
-});
+// const RANDOM_NAME = faker.name.findName();
+// const RANDOM_LAST_NAME = faker.name.lastName();
+// const RANDOM_EMAIL = faker.internet.email();
+// const RANDOM_ADDRESS = faker.address.streetAddress();
+// const RANDOM_PHONE_NUMBER = faker.datatype.number({
+//   'min': 100000000,
+//   'max': 999999999
+// });
+// const RANDOM_EMAIL_QUICK_FORM = faker.internet.email();
+// const RANDOM_PHONE_NUMBER_QUICK_FORM = faker.datatype.number({
+//   'min': 100000000,
+//   'max': 999999999
+// });
 
 
 var password = generator.generate({
@@ -82,13 +82,13 @@ describe('User registartaion Full', () => {
     before (()=> {
       cy.visit(Cypress.env("baseURL"))});
 
-    it.only('Form 1 Registration', () => {
-      cy.get(pe.registrationButton).click(),
-      cy.get('.btns-container > .active').should('have.class', 'active'),
-      cy.get('.account-info').should('have.text', 'ACCOUNT INFORMATION'),
-      cy.get('.password-info').should('have.text',' Lowercase letter is required Upper case letter is required Digit is not allowed Symbol is not allowed Maximum length is 16 Minimum length is 6'),
-      cy.get(pe.userName).click().should('be.visible').type(jsonData["data"][0]["first_name"]),
-      cy.get(pe.email).click().should('be.visible').type(RANDOM_EMAIL),
+    it('Form 1 Registration', () => {
+      cy.get(pe.registrationButton).wait(5000).click(),
+      cy.get(pe.fullRegButton).should('have.class', 'active'),
+      cy.get(pe.accInfoButton).should('have.text', 'ACCOUNT INFORMATION'),
+      cy.get(pe.passwordInfo).should('have.text',' Lowercase letter is required Upper case letter is required Digit is not allowed Symbol is not allowed Maximum length is 16 Minimum length is 6'),
+      cy.get(pe.userName).click().should('be.visible').type(jsonData["data"][0]["first_name"]).should("have.value", jsonData["data"][0]["first_name"]),
+      cy.get(pe.email).click().should('be.visible').type(jsonData["data"][0]["email"]).should("have.value", jsonData["data"][0]["email"]),
       cy.get(pe.password).click().should('be.visible').type(password).should('have.value', password),
       cy.get(pe.confirmPassword).click({ multiple: true }).should('be.visible').type(password, { multiple: true }).should('have.value', password),
       cy.get(pe.country).select(randomCountry()).should('not.be.empty'),
@@ -96,9 +96,9 @@ describe('User registartaion Full', () => {
   })
 
   it('Form 2 Registration', () => {
-    cy.get('.account-info').should('have.text', 'PERSONAL DETAILS')
-    cy.get(pe.firstName).type(RANDOM_NAME).should('have.value', RANDOM_NAME),
-    cy.get(pe.lastName).type(RANDOM_LAST_NAME).should('have.value', RANDOM_LAST_NAME),
+    cy.get(pe.accInfoButton).should('have.text', 'PERSONAL DETAILS')
+    cy.get(pe.firstName).type(jsonData["data"][1]["first_name"]).should('have.value', jsonData["data"][1]["first_name"]),
+    cy.get(pe.lastName).type(jsonData["data"][1]["last_name"]).should('have.value', jsonData["data"][1]["last_name"]),
     cy.get(pe.birthDate).select(randomAge()).should('not.be.empty'),
     cy.get(pe.birthMonths).select(randomMonths()).should('not.be.empty'),
     cy.get(pe.birthDay).select(randomDay()).should('not.be.empty'),
@@ -107,12 +107,13 @@ describe('User registartaion Full', () => {
     cy.get(pe.city).select('Select City').should('not.be.empty'),
     cy.get(pe.nextButtonSecond).click()
 }) 
+
 it('Form 3 Registration', () => {
-cy.get('.account-info').should('have.text', 'CONTACT DETAILS')
- cy.get(pe.address).click().should('be.visible').type(RANDOM_ADDRESS).should('have.value', RANDOM_ADDRESS),
+cy.get(pe.accInfoButton).should('have.text', 'CONTACT DETAILS')
+ cy.get(pe.address).click().should('be.visible').type(jsonData["data"][1]["address"]).should('have.value', jsonData["data"][1]["address"]),
  cy.get(pe.currency).select(randomCurrency()).should('not.be.empty'),
  cy.get(pe.countryCode).should("be.visible"),
- cy.get(pe.phoneNumber).click().should('be.visible').type(RANDOM_PHONE_NUMBER),
+ cy.get(pe.phoneNumber).click().type(jsonData["data"][0]["phoneNumber"]).should('be.visible'),
  cy.get(pe.checkbox).click().should('be.checked'),
  cy.get('.craft_btn').click(),
  cy.get('.title').should('have.text', 'Congratulations, You have successfully registered!')
@@ -121,12 +122,13 @@ cy.get('.account-info').should('have.text', 'CONTACT DETAILS')
 
 describe('User registartaion Quick Form first', () => {
   before (()=> {
+    cy.wait(5000)
     cy.visit(Cypress.env("baseURL"))});
 
   it('Email Registration Form', () => {
     cy.get(pe.registrationButton).click(),
     cy.get(pe.quickFormButton).click().should('not.have.class', 'inactive'),
-    cy.get(pe.emailQuick).click().type(RANDOM_EMAIL_QUICK_FORM).should('have.value', RANDOM_EMAIL_QUICK_FORM),
+    cy.get(pe.emailQuick).click().type(jsonData["data"][1]["email"]).should('have.value', jsonData["data"][1]["email"]),
     cy.get(pe.currency).select(randomCurrency()).should('not.be.empty'),
     cy.get(pe.checkbox).click().should('be.checked'),
     cy.get(pe.registerButton).should('have.class', 'active-item').click(),
@@ -137,6 +139,7 @@ describe('User registartaion Quick Form first', () => {
 
   describe('User registartaion Quick second', () => {
     before (()=> {
+      cy.wait(5000)
       cy.visit(Cypress.env("baseURL"))});
 
   it('Phone Registration Form', () => {
@@ -144,7 +147,7 @@ describe('User registartaion Quick Form first', () => {
     cy.get(pe.quickFormButton).should('not.have.class', 'inactive').click(),
     cy.get(pe.phoneValue).select("Mobile").should('have.value', 'Mobile'),
     cy.get(pe.countryCode).should("be.visible"),
-    cy.get(pe.phoneNumber).click().type(RANDOM_PHONE_NUMBER_QUICK_FORM),
+    cy.get(pe.phoneNumber).click().type(jsonData["data"][1]["phoneNumber"]).should('be.visible'),
     cy.get(pe.currency).select(randomCurrency()).should('not.be.empty'),
     cy.get(pe.checkbox).click().should('be.checked'),
     cy.get(pe.registerButton).should('have.class', 'active-item').click()

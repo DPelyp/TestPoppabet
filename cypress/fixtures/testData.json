@@ -1,0 +1,44 @@
+{
+	"data": [
+		{
+			"id": 1,
+			"first_name": "Terence Beier",
+			"last_name": "Lowe",
+			"email": "Tyson14@gmail.com",
+			"address": "8115 Windler Circles",
+			"phoneNumber": 476520022
+		},
+		{
+			"id": 2,
+			"first_name": "Faye Emard",
+			"last_name": "Schuster",
+			"email": "Jessyca78@hotmail.com",
+			"address": "331 Neoma Knolls",
+			"phoneNumber": 532460444
+		},
+		{
+			"id": 3,
+			"first_name": "Carroll Fadel",
+			"last_name": "Hilll",
+			"email": "Laverne41@hotmail.com",
+			"address": "3049 Ondricka Extensions",
+			"phoneNumber": 571257818
+		},
+		{
+			"id": 4,
+			"first_name": "Pedro Leffler",
+			"last_name": "Boyer",
+			"email": "Benjamin_Hansen@yahoo.com",
+			"address": "4291 Jessika Tunnel",
+			"phoneNumber": 384283457
+		},
+		{
+			"id": 5,
+			"first_name": "Geraldine DuBuque",
+			"last_name": "Johnston",
+			"email": "Shaun94@yahoo.com",
+			"address": "28468 Lynch Squares",
+			"phoneNumber": 316427930
+		}
+	]
+}
