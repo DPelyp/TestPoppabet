@@ -79,32 +79,38 @@ describe('User registartaion Full', () => {
 
     it('Form 1 Registration', () => {
       cy.get(pe.registrationButton).click(),
-      cy.get(pe.userName).click().should('be.visible').type(RANDOM_NAME),
+      cy.get('.btns-container > .active').should('have.class', 'active'),
+      cy.get('.account-info').should('have.text', 'ACCOUNT INFORMATION'),
+      cy.get('.password-info').should('have.text',' Lowercase letter is required Upper case letter is required Digit is not allowed Symbol is not allowed Maximum length is 16 Minimum length is 6'),
+      cy.get(pe.userName).click().should('be.visible').type(RANDOM_NAME).should('have.value', RANDOM_NAME),
       cy.get(pe.email).click().should('be.visible').type(RANDOM_EMAIL),
       cy.get(pe.password).click().should('be.visible').type(password).should('have.value', password),
       cy.get(pe.confirmPassword).click({ multiple: true }).should('be.visible').type(password, { multiple: true }).should('have.value', password),
-      cy.get(pe.country).select(randomCountry()).should('be.visible'),
+      cy.get(pe.country).select(randomCountry()).should('not.be.empty'),
       cy.get(pe.nextButton).click()
   })
 
   it('Form 2 Registration', () => {
+    cy.get('.account-info').should('have.text', 'PERSONAL DETAILS')
     cy.get(pe.firstName).type(RANDOM_NAME).should('have.value', RANDOM_NAME),
     cy.get(pe.lastName).type(RANDOM_LAST_NAME).should('have.value', RANDOM_LAST_NAME),
-    cy.get(pe.birthDate).select(randomAge()).should('be.visible'),
-    cy.get(pe.birthMonths).select(randomMonths()).should('be.visible'),
-    cy.get(pe.birthDay).select(randomDay()).should('be.visible'),
-    cy.get(pe.gender).select(randomGender()).should('be.visible'),
-    cy.get(pe.country).select(randomCountrySecond()).should('be.visible'),
-    cy.get(pe.city).select('Select City').should('be.visible'),
+    cy.get(pe.birthDate).select(randomAge()).should('not.be.empty'),
+    cy.get(pe.birthMonths).select(randomMonths()).should('not.be.empty'),
+    cy.get(pe.birthDay).select(randomDay()).should('not.be.empty'),
+    cy.get(pe.gender).select(randomGender()).should('not.be.empty'),
+    cy.get(pe.country).select(randomCountrySecond()).should('not.be.empty'),
+    cy.get(pe.city).select('Select City').should('not.be.empty'),
     cy.get(pe.nextButtonSecond).click()
 }) 
 it('Form 3 Registration', () => {
+cy.get('.account-info').should('have.text', 'CONTACT DETAILS')
  cy.get(pe.address).click().should('be.visible').type(RANDOM_ADDRESS).should('have.value', RANDOM_ADDRESS),
- cy.get(pe.currency).select(randomCurrency()).should('be.visible'),
+ cy.get(pe.currency).select(randomCurrency()).should('not.be.empty'),
  cy.get(pe.countryCode).should("be.visible"),
- cy.get(pe.phoneNumber).click().should('be.visible').type(RANDOM_PHONE_NUMBER).should('be.visible'),
+ cy.get(pe.phoneNumber).click().should('be.visible').type(RANDOM_PHONE_NUMBER),
  cy.get(pe.checkbox).click().should('be.checked'),
- cy.get(pe.registerButton).should('be.visible').click()
+ cy.get('.craft_btn').click(),
+ cy.get('.title').should('have.text', 'Congratulations, You have successfully registered!')
 })
 });
 
@@ -114,11 +120,11 @@ describe('User registartaion Quick Form first', () => {
 
   it('Email Registration Form', () => {
     cy.get(pe.registrationButton).click(),
-    cy.get(pe.quickFormButton).click(),
+    cy.get(pe.quickFormButton).click().should('not.have.class', 'inactive'),
     cy.get(pe.emailQuick).click().type(RANDOM_EMAIL_QUICK_FORM).should('have.value', RANDOM_EMAIL_QUICK_FORM),
-    cy.get(pe.currency).select(randomCurrency()).should('be.visible'),
+    cy.get(pe.currency).select(randomCurrency()).should('not.be.empty'),
     cy.get(pe.checkbox).click().should('be.checked'),
-    cy.get(pe.registerButton).should('be.visible').click(),
+    cy.get(pe.registerButton).should('have.class', 'active-item').click(),
     cy.get(pe.userProfile).click(),
     cy.get(pe.logoutButton).click()
   })
@@ -130,13 +136,13 @@ describe('User registartaion Quick Form first', () => {
 
   it('Phone Registration Form', () => {
     cy.get(pe.registrationButton, {timeout : 30000}).click(),
-    cy.get(pe.quickFormButton).click(),
-    cy.get(pe.phoneValue).select("Mobile"),
+    cy.get(pe.quickFormButton).should('not.have.class', 'inactive').click(),
+    cy.get(pe.phoneValue).select("Mobile").should('have.value', 'Mobile'),
     cy.get(pe.countryCode).should("be.visible"),
-    cy.get(pe.phoneNumber).click().type(RANDOM_PHONE_NUMBER_QUICK_FORM).should('be.visible'),
-    cy.get(pe.currency).select(randomCurrency()).should('be.visible'),
+    cy.get(pe.phoneNumber).click().type(RANDOM_PHONE_NUMBER_QUICK_FORM),
+    cy.get(pe.currency).select(randomCurrency()).should('not.be.empty'),
     cy.get(pe.checkbox).click().should('be.checked'),
-    cy.get(pe.registerButton).should('be.visible').click()
+    cy.get(pe.registerButton).should('have.class', 'active-item').click()
   })
 })
 
