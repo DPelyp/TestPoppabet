@@ -82,6 +82,37 @@ describe('User registartaion Full', () => {
     before (()=> {
       cy.visit(Cypress.env("baseURL"))});
 
+      it('Generate json by command', () => {
+        cy.generateFixture(2)
+    })
+
+    //------------------------------------
+
+    function createJson(x){
+      const faker = require('faker')
+  
+      cy.writeFile('cypress/fixtures/JSONv2.json', {
+        'hits':Cypress._.times(x, () => {
+          return {
+            'title':`${faker.lorem.words(3)}`,
+            'url':`${faker.internet.url()}`,
+            'author':`${faker.name.firstName()} ${faker.name.lastName()}`,
+            'num_comments':`${faker.datatype.number()}`,
+            'points':`${faker.datatype.number()}`,
+            'objectID':`${faker.datatype.uuid()}`,
+          }
+        })
+      })
+
+    }
+
+    it.only('Generate json by fucntion', () => {  
+      createJson(3)
+  })
+
+
+   //------------------------------------
+
     it('Form 1 Registration', () => {
       cy.get(pe.registrationButton).wait(5000).click(),
       cy.get(pe.fullRegButton).should('have.class', 'active'),
