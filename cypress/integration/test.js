@@ -1,8 +1,8 @@
 {/* <reference types="cypress" /> */}
 
 import {PageElements} from '../support/locators.js';
-import faker from 'faker';
-const jsonData = require('./testData.json');
+// import faker from 'faker';
+const jsonData = require('../fixtures/testData.json');
 var generator = require('generate-password');
 
 
@@ -126,7 +126,7 @@ describe('User registartaion Quick Form first', () => {
     cy.visit(Cypress.env("baseURL"))});
 
   it('Email Registration Form', () => {
-    cy.get(pe.registrationButton).click(),
+    cy.get(pe.registrationButton).wait(3000).click(),
     cy.get(pe.quickFormButton).click().should('not.have.class', 'inactive'),
     cy.get(pe.emailQuick).click().type(jsonData["data"][1]["email"]).should('have.value', jsonData["data"][1]["email"]),
     cy.get(pe.currency).select(randomCurrency()).should('not.be.empty'),
