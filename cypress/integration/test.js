@@ -5,6 +5,7 @@
 import { PageElements } from "../support/locators.js";
 // import faker from 'faker';
 const jsonData = require("../fixtures/testData.json");
+const JSON = require("../fixtures/JSONv2");
 var generator = require("generate-password");
 
 const pe = new PageElements();
@@ -91,9 +92,10 @@ describe("User registartaion Full", () => {
     cy.visit(Cypress.env("baseURL"));
   });
 
-  it("Generate json by command", () => {
-    cy.generateFixture(2);
-  });
+//   it("Generate json by command", () => {
+//     cy.generateFixture(2);
+//   });
+// })
 
   //------------------------------------
 
@@ -116,14 +118,14 @@ describe("User registartaion Full", () => {
     });
   }
 
-  it.only("Generate json by fucntion", () => {
+  it("Generate json by fucntion", () => {
     createJson(3);
   });
 
   //------------------------------------
 
   it("Form 1 Registration", () => {
-    cy.get(pe.registrationButton).wait(5000).click(),
+    cy.get(pe.registrationButton).click(),
       cy.get(pe.fullRegButton).should("have.class", "active"),
       cy.get(pe.accInfoButton).should("have.text", "ACCOUNT INFORMATION"),
       cy
@@ -136,7 +138,7 @@ describe("User registartaion Full", () => {
         .get(pe.userName)
         .click()
         .should("be.visible")
-        .type(jsonData["data"][0]["first_name"])
+        .type(JSON["hits"][0]["first_name"])
         .should("have.value", jsonData["data"][0]["first_name"]),
       cy
         .get(pe.email)
@@ -203,7 +205,8 @@ describe("User registartaion Full", () => {
           "Congratulations, You have successfully registered!"
         );
   });
-});
+})
+
 
 describe("User registartaion Quick Form first", () => {
   before(() => {
