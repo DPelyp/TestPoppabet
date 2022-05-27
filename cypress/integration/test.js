@@ -1,11 +1,11 @@
-{
-  /* <reference types="cypress" /> */
-}
+///<reference types="cypress" />
 
 import { PageElements } from "../support/locators.js";
 // import faker from 'faker';
-const jsonData = require("../fixtures/testData.json");
-const JSON = require("../fixtures/JSONv2");
+import * as funcs from "../support/funcs.js";
+import ex from "../fixtures/example.json";
+
+//const userData = require("../fixtures/example.json");
 var generator = require("generate-password");
 
 const pe = new PageElements();
@@ -32,95 +32,37 @@ var password = generator.generate({
   symbols: false,
 });
 
-function randomCountry() {
-  const countries = ["784", "809", "810"];
-  const rand = Math.floor(Math.random() * countries.length);
-  return countries[rand];
-}
-
-function randomAge() {
-  const years = ["1999", "2000", "2001"];
-  const rand = Math.floor(Math.random() * years.length);
-  return years[rand];
-}
-
-function randomMonths() {
-  const months = [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10",
-    "11",
-    "12",
-  ];
-  const rand = Math.floor(Math.random() * months.length);
-  return months[rand];
-}
-
-function randomDay() {
-  const days = ["1", "2", "3", "4", "5"];
-  const rand = Math.floor(Math.random() * days.length);
-  return days[rand];
-}
-
-function randomGender() {
-  const gender = ["1", "2"];
-  const rand = Math.floor(Math.random() * gender.length);
-  return gender[rand];
-}
-
-function randomCountrySecond() {
-  const countries = ["784", "809", "810"];
-  const rand = Math.floor(Math.random() * countries.length);
-  return countries[rand];
-}
-
-function randomCurrency() {
-  const currency = ["USD", "EUR", "UYU", "RUB"];
-  const rand = Math.floor(Math.random() * currency.length);
-  return currency[rand];
-}
-
 describe("User registartaion Full", () => {
   before(() => {
     cy.visit(Cypress.env("baseURL"));
+    cy.createJson(3);
   });
 
-//   it("Generate json by command", () => {
-//     cy.generateFixture(2);
-//   });
-// })
+  //   it("Generate json by command", () => {
+  //     cy.generateFixture(2);
+  //   });
+  // })
 
   //------------------------------------
 
   function createJson(x) {
     const faker = require("faker");
 
-    cy.writeFile("cypress/fixtures/JSONv2.json", {
+    cy.writeFile("cypress/fixtures/example.json", {
       hits: Cypress._.times(x, () => {
         return {
-          "first_name": `${faker.name.findName()}`,
-          "last_name": `${faker.name.lastName()}`,
-          "email": `${faker.internet.email()}`,
-          "address": `${faker.address.streetAddress()}`,
-          "phoneNumber": `${faker.datatype.number({
+          first_name: `${faker.name.findName()}`,
+          last_name: `${faker.name.lastName()}`,
+          email: `${faker.internet.email()}`,
+          address: `${faker.address.streetAddress()}`,
+          phoneNumber: `${faker.datatype.number({
             min: 100000000,
             max: 999999999,
-          })}`
+          })}`,
         };
       }),
     });
   }
-
-  it("Generate json by fucntion", () => {
-    createJson(3);
-  });
 
   //------------------------------------
 
@@ -138,14 +80,14 @@ describe("User registartaion Full", () => {
         .get(pe.userName)
         .click()
         .should("be.visible")
-        .type(JSON["hits"][0]["first_name"])
-        .should("have.value", jsonData["data"][0]["first_name"]),
+        .type(ex["hits"][0]["first_name"])
+        .should("have.value", ex["hits"][0]["first_name"]),
       cy
         .get(pe.email)
         .click()
         .should("be.visible")
-        .type(jsonData["data"][0]["email"])
-        .should("have.value", jsonData["data"][0]["email"]),
+        .type(userData["hits"][0]["email"])
+        .should("have.value", userData["hits"][0]["email"]),
       cy
         .get(pe.password)
         .click()
@@ -158,7 +100,7 @@ describe("User registartaion Full", () => {
         .should("be.visible")
         .type(password, { multiple: true })
         .should("have.value", password),
-      cy.get(pe.country).select(randomCountry()).should("not.be.empty"),
+      cy.get(pe.country).select(funcs.randomCountry()).should("not.be.empty"),
       cy.get(pe.nextButton).click();
   });
 
@@ -166,17 +108,23 @@ describe("User registartaion Full", () => {
     cy.get(pe.accInfoButton).should("have.text", "PERSONAL DETAILS");
     cy
       .get(pe.firstName)
-      .type(jsonData["data"][1]["first_name"])
-      .should("have.value", jsonData["data"][1]["first_name"]),
+      .type(userData["hits"][1]["first_name"])
+      .should("have.value", userData["hits"][1]["first_name"]),
       cy
         .get(pe.lastName)
-        .type(jsonData["data"][1]["last_name"])
-        .should("have.value", jsonData["data"][1]["last_name"]),
-      cy.get(pe.birthDate).select(randomAge()).should("not.be.empty"),
-      cy.get(pe.birthMonths).select(randomMonths()).should("not.be.empty"),
-      cy.get(pe.birthDay).select(randomDay()).should("not.be.empty"),
-      cy.get(pe.gender).select(randomGender()).should("not.be.empty"),
-      cy.get(pe.country).select(randomCountrySecond()).should("not.be.empty"),
+        .type(userData["hits"][1]["last_name"])
+        .should("have.value", userData["hits"][1]["last_name"]),
+      cy.get(pe.birthDate).select(funcs.randomAge()).should("not.be.empty"),
+      cy
+        .get(pe.birthMonths)
+        .select(funcs.randomMonths())
+        .should("not.be.empty"),
+      cy.get(pe.birthDay).select(funcs.randomDay()).should("not.be.empty"),
+      cy.get(pe.gender).select(funcs.randomGender()).should("not.be.empty"),
+      cy
+        .get(pe.country)
+        .select(funcs.randomCountrySecond())
+        .should("not.be.empty"),
       cy.get(pe.city).select("Select City").should("not.be.empty"),
       cy.get(pe.nextButtonSecond).click();
   });
@@ -187,14 +135,14 @@ describe("User registartaion Full", () => {
       .get(pe.address)
       .click()
       .should("be.visible")
-      .type(jsonData["data"][1]["address"])
-      .should("have.value", jsonData["data"][1]["address"]),
-      cy.get(pe.currency).select(randomCurrency()).should("not.be.empty"),
+      .type(userData["hits"][1]["address"])
+      .should("have.value", userData["hits"][1]["address"]),
+      cy.get(pe.currency).select(funcs.randomCurrency()).should("not.be.empty"),
       cy.get(pe.countryCode).should("be.visible"),
       cy
         .get(pe.phoneNumber)
         .click()
-        .type(jsonData["data"][0]["phoneNumber"])
+        .type(JSON["hits"][0]["phoneNumber"])
         .should("be.visible"),
       cy.get(pe.checkbox).click().should("be.checked"),
       cy.get(".craft_btn").click(),
@@ -205,8 +153,7 @@ describe("User registartaion Full", () => {
           "Congratulations, You have successfully registered!"
         );
   });
-})
-
+});
 
 describe("User registartaion Quick Form first", () => {
   before(() => {
@@ -220,9 +167,9 @@ describe("User registartaion Quick Form first", () => {
       cy
         .get(pe.emailQuick)
         .click()
-        .type(jsonData["data"][1]["email"])
-        .should("have.value", jsonData["data"][1]["email"]),
-      cy.get(pe.currency).select(randomCurrency()).should("not.be.empty"),
+        .type(userData["hits"][1]["email"])
+        .should("have.value", userData["hits"][1]["email"]),
+      cy.get(pe.currency).select(funcs.randomCurrency()).should("not.be.empty"),
       cy.get(pe.checkbox).click().should("be.checked"),
       cy.get(pe.registerButton).should("have.class", "active-item").click(),
       cy.get(pe.userProfile).click(),
@@ -244,9 +191,9 @@ describe("User registartaion Quick second", () => {
       cy
         .get(pe.phoneNumber)
         .click()
-        .type(jsonData["data"][1]["phoneNumber"])
+        .type(userData["hits"][1]["phoneNumber"])
         .should("be.visible"),
-      cy.get(pe.currency).select(randomCurrency()).should("not.be.empty"),
+      cy.get(pe.currency).select(funcs.randomCurrency()).should("not.be.empty"),
       cy.get(pe.checkbox).click().should("be.checked"),
       cy.get(pe.registerButton).should("have.class", "active-item").click();
   });

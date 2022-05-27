@@ -24,18 +24,36 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+Cypress.Commands.add("createJson", (x) => {
+  const faker = require("faker");
+
+  cy.writeFile("cypress/fixtures/example.json", {
+    hits: Cypress._.times(x, () => {
+      return {
+        first_name: `${faker.name.findName()}`,
+        last_name: `${faker.name.lastName()}`,
+        email: `${faker.internet.email()}`,
+        address: `${faker.address.streetAddress()}`,
+        phoneNumber: `${faker.datatype.number({
+          min: 100000000,
+          max: 999999999,
+        })}`,
+      };
+    }),
+  });
+});
+
 Cypress.Commands.add("generateFixture", (x) => {
   const faker = require("faker");
 
   cy.writeFile("cypress/fixtures/stories.json", {
     hits: Cypress._.times(x, () => {
       return {
-        "id": id,
-        "first_name": `${faker.name.findName()}`,
-        "last_name": `${faker.name.lastName()}`,
-        "email": `${faker.internet.email()}`,
-        "address": `${faker.address.streetAddress()}`,
-        "phoneNumber": `${(RANDOM_PHONE_NUMBER = faker.datatype.number({
+        first_name: `${faker.name.findName()}`,
+        last_name: `${faker.name.lastName()}`,
+        email: `${faker.internet.email()}`,
+        address: `${faker.address.streetAddress()}`,
+        phoneNumber: `${(RANDOM_PHONE_NUMBER = faker.datatype.number({
           min: 100000000,
           max: 999999999,
         }))}`,
