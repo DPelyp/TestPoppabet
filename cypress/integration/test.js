@@ -115,7 +115,6 @@ describe("User registartaion Full", () => {
 
 describe("User registartaion Quick Form first", () => {
   before(() => {
-    cy.wait(5000);
     cy.visit(Cypress.env("baseURL"));
   });
 
