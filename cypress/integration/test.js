@@ -128,9 +128,7 @@ describe("User registartaion Quick Form first", () => {
         .should("have.value", userData["data"][1]["email"]),
       cy.get(pe.currency).select(funcs.randomCurrency()).should("not.be.empty"),
       cy.get(pe.checkbox).click().should("be.checked"),
-      cy.get(pe.registerButton).should("have.class", "active-item").click(),
-      cy.get(pe.userProfile).click(),
-      cy.get(pe.logoutButton).click();
+      cy.get(pe.registerButton).should("have.class", "active-item").click()
   });
 });
 
