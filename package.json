@@ -8,6 +8,6 @@
     "supertest": "^6.2.3"
   },
   "devDependencies": {
-    "cypress": "^9.7.0"
+    "cypress": "^10.0.2"
   }
 }

@@ -30,3 +30,4 @@ function generateFakeData() {
 let dataObj = generateFakeData();
 
 fs.writeFileSync('cypress/fixtures/testData.json', JSON.stringify(dataObj, null, '\t'));
+
